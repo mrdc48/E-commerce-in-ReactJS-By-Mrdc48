@@ -1,0 +1,13 @@
+.navigation {
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  .logo-container {
+    text-decoration: none;
+    font-size: 2.4rem;
+    border: 2px dotted red;
+    padding: 0em 1em;
+  }
+}
