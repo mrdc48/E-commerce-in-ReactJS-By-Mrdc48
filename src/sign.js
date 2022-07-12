@@ -1,16 +1,12 @@
 import { signInWithGooglePopup, createUser } from "./firebase.utils.js";
 import React from "react";
 import Signup from "./Signup.js";
+import NewLog from "./NewLogin.js";
 
 function sign() {
-  const Data = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userRef = await createUser(user);
-  };
   return (
-    <div>
-      <p>sign in page </p>
-      <button onClick={Data}> sing in </button>
+    <div style={{ display: "flex", gridGap: "20px" }}>
+      <NewLog />
       <Signup />
     </div>
   );

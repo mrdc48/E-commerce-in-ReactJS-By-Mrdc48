@@ -1,5 +1,11 @@
+import { async } from "@firebase/util";
 import { confirmPasswordReset } from "firebase/auth";
 import { useState } from "react";
+import Form from "./form.js";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUser,
+} from "./firebase.utils";
 
 const defaultFields = {
   displayName: "",
@@ -22,37 +28,59 @@ export default function Signup() {
     });
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      alert("password doesnt match");
+      return;
+    }
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUser(user, { displayName });
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("same can't be created");
+      } else {
+        console.log("encounterd an error", error);
+      }
+    }
+  };
+
   return (
     <div>
-      <h1>Sign in with your email and password</h1>
-      <form onSubmit={() => {}}>
-        <label>Display Name</label>
-        <input
+      <h1>Sign up</h1>
+      <form onSubmit={handleSubmit}>
+        <Form
+          label="Display Name"
           type="text"
           required
           onChange={handleChange}
           name="displayName"
           value={displayName}
         />
-        <label>Email</label>
-        <input
-          type="text"
+        <Form
+          label="Email"
+          type="email"
           required
           onChange={handleChange}
           name="email"
           value={email}
         />
-        <label>Password</label>
-        <input
-          type="text"
+        <Form
+          label="Password"
+          type="password"
           required
           onChange={handleChange}
           name="password"
           value={password}
         />
-        <label>Confirm Password</label>
-        <input
-          type="text"
+        <Form
+          label="Confirm Password"
+          type="password"
           required
           onChange={handleChange}
           name="confirmPassword"
