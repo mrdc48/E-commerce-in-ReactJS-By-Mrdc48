@@ -1,6 +1,7 @@
 import { async } from "@firebase/util";
+import { useState, useContext } from "react";
 import { confirmPasswordReset } from "firebase/auth";
-import { useState } from "react";
+import { UserContext } from "./context.jsx";
 import Form from "./form.js";
 import {
   signInWithGooglePopup,
@@ -11,7 +12,7 @@ import {
 const defaultFields = {
   // displayName: "",
   email: "",
-  
+
   password: "",
   // confirmPassword: "",
 };
@@ -19,6 +20,7 @@ const defaultFields = {
 export default function NewLogin() {
   const [formFields, setFormFields] = useState(defaultFields);
   const { email, password } = formFields;
+  const { setCurrentUser } = useContext(UserContext);
 
   const SinInGoogle = async () => {
     const { user } = await signInWithGooglePopup();
@@ -44,8 +46,7 @@ export default function NewLogin() {
         email,
         password
       );
-      resetFiled();
-      console.log(response);
+      setCurrentUser(response);
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -54,7 +55,7 @@ export default function NewLogin() {
         case "auth/user-not-found":
           alert("incorrect email");
           break;
-          
+
         default:
           console.log(error);
       }
@@ -88,7 +89,7 @@ export default function NewLogin() {
           }}
         >
           <button type="submit">Sign-In</button>
-          <button type="button" buttonType="google" onClick={SinInGoogle}>
+          <button type="button" buttontype="google" onClick={SinInGoogle}>
             Sign-In With Google
           </button>
         </div>
