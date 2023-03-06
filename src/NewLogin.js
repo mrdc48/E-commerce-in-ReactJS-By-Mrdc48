@@ -11,6 +11,7 @@ import {
 const defaultFields = {
   // displayName: "",
   email: "",
+  
   password: "",
   // confirmPassword: "",
 };
@@ -22,6 +23,10 @@ export default function NewLogin() {
   const SinInGoogle = async () => {
     const { user } = await signInWithGooglePopup();
     await createUser(user);
+  };
+
+  const resetFiled = () => {
+    setFormFields(defaultFields);
   };
 
   const handleChange = (event) => {
@@ -39,8 +44,21 @@ export default function NewLogin() {
         email,
         password
       );
+      resetFiled();
       console.log(response);
-    } catch (error) {}
+    } catch (error) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("wrong password");
+          break;
+        case "auth/user-not-found":
+          alert("incorrect email");
+          break;
+          
+        default:
+          console.log(error);
+      }
+    }
   };
 
   return (
@@ -63,11 +81,17 @@ export default function NewLogin() {
           name="password"
           value={password}
         />
-
-        <button type="submit">Sign-In</button>
-        <button buttonType="google" onClick={SinInGoogle}>
-          Sign-In With Google
-        </button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+          }}
+        >
+          <button type="submit">Sign-In</button>
+          <button type="button" buttonType="google" onClick={SinInGoogle}>
+            Sign-In With Google
+          </button>
+        </div>
       </form>
     </div>
   );
