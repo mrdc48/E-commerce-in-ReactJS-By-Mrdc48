@@ -1,7 +1,6 @@
 import { async } from "@firebase/util";
 import { confirmPasswordReset } from "firebase/auth";
-import { useState, useContext } from "react";
-import { UserContext } from "./context.jsx";
+import { useState } from "react";
 import Form from "./form.js";
 import {
   createAuthUserWithEmailAndPassword,
@@ -18,7 +17,6 @@ const defaultFields = {
 export default function Signup() {
   const [formFields, setFormFields] = useState(defaultFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  const { setCurrentUser } = useContext(UserContext);
 
   console.log(formFields);
 
@@ -41,7 +39,6 @@ export default function Signup() {
         email,
         password
       );
-      setCurrentUser(user);
       await createUser(user, { displayName });
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

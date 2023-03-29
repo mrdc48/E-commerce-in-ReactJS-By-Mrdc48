@@ -3,25 +3,21 @@ import { UserContext } from "./context";
 import { Outlet, Link } from "react-router-dom";
 import "./Navgation.scss";
 import { signOutUser } from "./firebase.utils";
-
+import Cart from "./Cart";
 export default function Nav() {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
-  const signOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
   return (
     <Fragment>
       <div className="navigation">
         <Link to="/" className="logo-container">
-          Dc
+          Home
         </Link>
         <Link to="shop" className="logo-container">
           shop
         </Link>
         {currentUser ? (
-          <span className="logo-container" onClick={signOutHandler}>
+          <span className="logo-container" onClick={signOutUser}>
             sign out
           </span>
         ) : (
@@ -29,6 +25,9 @@ export default function Nav() {
             sign in
           </Link>
         )}
+        <Link to="userProducts" className="logo-container">
+          <Cart />
+        </Link>
       </div>
       <Outlet />
     </Fragment>

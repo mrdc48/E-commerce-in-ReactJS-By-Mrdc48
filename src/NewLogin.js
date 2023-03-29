@@ -1,11 +1,9 @@
 import { async } from "@firebase/util";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { confirmPasswordReset } from "firebase/auth";
-import { UserContext } from "./context.jsx";
 import Form from "./form.js";
 import {
   signInWithGooglePopup,
-  createUser,
   signIncreateAuthUserWithEmailAndPassword,
 } from "./firebase.utils";
 
@@ -20,11 +18,9 @@ const defaultFields = {
 export default function NewLogin() {
   const [formFields, setFormFields] = useState(defaultFields);
   const { email, password } = formFields;
-  const { setCurrentUser } = useContext(UserContext);
 
   const SinInGoogle = async () => {
     const { user } = await signInWithGooglePopup();
-    await createUser(user);
   };
 
   const resetFiled = () => {
@@ -46,7 +42,6 @@ export default function NewLogin() {
         email,
         password
       );
-      setCurrentUser(response);
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
