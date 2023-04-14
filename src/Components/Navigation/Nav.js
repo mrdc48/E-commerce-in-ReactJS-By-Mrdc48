@@ -1,9 +1,9 @@
 import React, { Fragment, useContext } from "react";
-import { UserContext } from "./context";
+import { UserContext } from "../Context/context";
 import { Outlet, Link } from "react-router-dom";
 import "./Navgation.scss";
-import { signOutUser } from "./firebase.utils";
-import Cart from "./Cart";
+import { signOutUser } from "../../Components/FirestoreForm/firebase.utils";
+import CartIcon from "../CartComponent/CartIcon";
 export default function Nav() {
   const { currentUser } = useContext(UserContext);
 
@@ -25,8 +25,8 @@ export default function Nav() {
             sign in
           </Link>
         )}
-        <Link to="userProducts" className="logo-container">
-          <Cart />
+        <Link to="CartProducts" className="logo-container">
+          <CartIcon />
         </Link>
       </div>
       <Outlet />

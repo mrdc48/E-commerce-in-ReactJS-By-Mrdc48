@@ -18,7 +18,7 @@ export default function Signup() {
   const [formFields, setFormFields] = useState(defaultFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  console.log(formFields);
+  // console.log(formFields);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
