@@ -14,9 +14,7 @@ export default function ProductCard({ product }) {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <button buttonType="inverted" onClick={addProductToCart}>
-        add to cart
-      </button>
+      <button onClick={addProductToCart}>add to cart</button>
     </div>
   );
 }
