@@ -15,10 +15,14 @@
 
   button {
     width: 80%;
-    opacity: 0.7;
+    // opacity: 0.7;
     position: absolute;
     top: 255px;
     display: none;
+    background-color: rgb(135, 235, 180);
+    border: none;
+    padding: 10px;
+    font-weight: 600;
   }
 
   &:hover {

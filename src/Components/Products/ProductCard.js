@@ -14,7 +14,10 @@ export default function ProductCard({ product }) {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
-      <button onClick={addProductToCart}>add to cart</button>
+      <button className="ButtonData" onClick={addProductToCart}>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        &nbsp; &nbsp; &nbsp;add to cart
+      </button>
     </div>
   );
 }
