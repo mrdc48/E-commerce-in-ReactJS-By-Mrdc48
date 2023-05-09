@@ -17,7 +17,7 @@ export default function Nav() {
       <NavigationContainer>
         <LogoContainer to="/">Home</LogoContainer>
         <NavLinks>
-          <NavLink to="shop">shop</NavLink>
+          <NavLink to="shop">shop </NavLink>
           {currentUser ? (
             <NavLink as="span" onClick={signOutUser}>
               sign out
